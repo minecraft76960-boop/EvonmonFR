@@ -7,7 +7,7 @@ from discord import app_commands
 from discord.ext import commands
 
 # --- CONFIGURATION ---
-os.environ.get('TOKEN')
+TOKEN = os.environ.get('TOKEN') # <--- C'est ici qu'il faut ajouter le nom de la variable
 ROLE_STAFF_ID = 1527773468110618815
 CATEGORIE_TICKET_ID = 1528078675797606501
 LOGS_CHANNEL_ID = 1528183010447462420
