@@ -6,8 +6,24 @@ import os
 from discord import app_commands
 from discord.ext import commands
 
+from flask import Flask
+from threading import Thread
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Le bot est en ligne !"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+    
 # --- CONFIGURATION ---
-TOKEN = os.environ.get('TOKEN') # <--- C'est ici qu'il faut ajouter le nom de la variable
+TOKEN = os.environ.get('TOKEN')
 ROLE_STAFF_ID = 1527773468110618815
 CATEGORIE_TICKET_ID = 1528078675797606501
 LOGS_CHANNEL_ID = 1528183010447462420
@@ -129,4 +145,5 @@ async def xp(interaction: discord.Interaction, membre: discord.Member = None):
     embed.add_field(name="XP", value=f"{user['xp']} / {user['lvl'] * 100}")
     await interaction.response.send_message(embed=embed)
 
+keep_alive()
 bot.run(TOKEN)
